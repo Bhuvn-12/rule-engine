@@ -1,0 +1,205 @@
+<div class="container">
+  <!--   <div class="row">
+    <div class="col">
+      <button class='btn-primary' (click)='createRuleSet()'><i class="fas fa-plus-circle"
+          aria-hidden="true"></i>RuleSet</button>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="RuleSet Name" (change)="($event)" [formControl]="ruleSet_Ctl" required>
+        <mat-error *ngIf="ruleSet_Ctl.invalid">
+          please fill RuleSet Name
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="example-full-width">
+        <mat-label>Select Input Data Object</mat-label>
+        <mat-select [formControl]="iDataObj_ctl" (selectionChange)="selectIDataObj($event)" required
+          [attr.disabled]='is_disabled'>
+          <mat-option *ngFor="let obj of iDataObjArr" [value]="obj">{{obj}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="iDataObj_ctl?.invalid">
+          please Select One
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col" style="margin-top: 12px">
+      <button class="btn-primary" (click)='RuleSetObj()'> Save</button>
+    </div>
+  </div>
+
+
+  <button (click)='makeArrayStruct()'>Click</button>
+</div>
+<div class="container" *ngIf='showRule'>
+  <div class='row'>
+    <div class="col">
+      <button class='btn-primary' (click)='createRule()'><i class="fas fa-plus-circle" aria-hidden="true"></i> New
+        Rule</button>
+    </div>
+  </div>
+  <div class="row">
+    <mat-accordion style="width: 100%">
+      <mat-expansion-panel style="width: 100%" *ngFor="let rule of ruleArr;let i=index">
+        <mat-expansion-panel-header class="right-aligned-header">
+          <mat-panel-title>
+            {{rule.ruleName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            <button class="btn" (click)="deleteRule(i)"> <i class="material-icons">
+                remove_circle_outline
+              </i></button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <table class="table">
+          <tr>
+            <td>
+              <div class="row">
+                When
+              </div>
+              <div class="row">
+                <a class="badge badge-primary" (click)="editWhen(rule, i)">
+                  See This Condition
+                </a>
+              </div>
+            </td>
+            <td class="createBtn">
+              <button type="button" mat-icon-button color="primary" (click)="callWhen(rule, i)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="row">
+                Then
+              </div>
+              <div class="row" *ngFor="let thenObj of ruleArr[i].then;let thenIndex= index">
+                <a class="badge badge-primary" (click)="editThen(i,thenIndex)">
+                  See This Action
+                </a>
+                <a class="badge " (click)="deletethen(i,thenIndex)"> <i class="material-icons" style="font-size: 11px">
+                    remove_circle_outline
+                  </i></a>
+              </div>
+
+            </td>
+            <td class="createBtn">
+              <button type="button" mat-icon-button color="primary" (click)="callThen(rule, i)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </td>
+          </tr>
+
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+<div class="container" id="bottom">
+    <div class='row'>
+        <div class='col'>
+          <button class='btn-primary' (click)='saveRuleSet()'>Save RuleSet</button>
+        </div>
+      </div>
+</div>
+
+<!-- Rule Information -->
+<div class="modal fade" id='RuleModal' tabindex="-1" role="dialog" aria-labelledby="whenModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="RuleModal">Fill Rule Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Rule Name" (change)="($event)" [formControl]="ruleName_Ctl" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="RuleSet Name" (change)="($event)" value="{{dataObj?.inputDataObj}}" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="saveRuleInfo()">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--When condition Modal -->
+<div class="modal fade" id='whenModal' tabindex="-1" role="dialog" aria-labelledby="whenModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="whenModal">Create Your When Condition</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="width: 100%">
+          <mat-card>
+            <app-when-query-builder id='query-builder' [data]='query' [config]='config'>
+            </app-when-query-builder>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="saveWhen()">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Then condition Modal -->
+<div class="modal fade" id='thenModal' tabindex="-1" role="dialog" aria-labelledby="thenModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="thenModal">Fill then Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style='width:100%'>
+          <mat-form-field>
+            <mat-label>Select an option</mat-label>
+            <mat-select [formControl]="outDataObj_ctl" (selectionChange)="selectOutDataObj($event)">
+              <mat-option *ngFor="let obj of outputDataObject" [value]="obj">
+                {{obj}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="width: 100%">
+          <mat-card>
+            <app-then-query-builder id='query-builder' [data]='querythen' [config]='configthen'>
+            </app-then-query-builder>
+          </mat-card>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="saveThen()">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

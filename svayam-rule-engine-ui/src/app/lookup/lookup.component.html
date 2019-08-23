@@ -1,0 +1,126 @@
+<div class='row'>
+  <div class='col' id='top_head'>
+    <h4>{{selctedObject.lookup_name}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Lookups Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lookupObj of lookupObjects; let i = index">
+          <td style="text-align: center">
+            <button class="btn btn-info" type="button" class="btn btn-info"
+              (click)="showDataObject(i, lookupObj)">{{lookupObj?.lookup_name}}</button>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">
+            <button type="submit" class="btn btn-primary" (click)="newLookupObject()">New Lookup</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class='col'>
+        <form [formGroup]="lookupObjectForm">
+          <div class="row" *ngFor='let obj of listArr;let i=index'>
+            <div class="col" *ngFor='let name of listArr[i]'>
+              <div class="form-group">
+                <label>{{name}}</label>
+                <input type="text" formControlName="{{name}}" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && is_Invalid(name) }" [readonly]="is_disabled"/>
+                <div *ngIf="submitted &&  is_Invalid(name)" class="invalid-feedback">
+                  <div *ngIf="is_Invalid(name).required">{{name}} is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" style="text-align: right">
+                <button class="btn btn-info" (click)="insertLookUp()" *ngIf="!is_disabled">Save</button>
+                <button class="btn btn-info" (click)="editData()" *ngIf="is_disabled">Edit</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger" (click)="test()" *ngIf="is_disabled">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Lookup Information -->
+<div class="modal fade" id='lookupObjModal' tabindex="-1" role="dialog" aria-labelledby="lookupObjLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lookupObjModal">Lookup Infromation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class='col'>
+            <form [formGroup]="lookupForm">
+              <div class="row">
+                <div class="col">
+                  <div class="from-group">
+                    <label>Select Category</label>
+                    <select class="custom-select" formControlName="category"  (change)='catChange($event)' 
+                    [ngClass]="{ 'is-invalid': submitted1 && fName.subCategory.errors }">
+                        <option *ngFor="let catObj of catList" value="{{catObj.value}}">{{catObj.name}}</option> 
+                    </select>
+                    <div *ngIf="submitted1 && fName.subCategory.errors" class="invalid-feedback">
+                        <div *ngIf="fName.subCategory.errors.required">Lookup Category is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                    <label>Select Subcategory</label>
+                    <select class="custom-select"  formControlName="subCategory" 
+                     [ngClass]="{ 'is-invalid': submitted1 && fName.subCategory.errors }">
+                        <option *ngFor="let subObj of subList" [value]="subObj">{{subObj}}</option>
+                    </select>
+                    <div *ngIf="submitted1 && fName.subCategory.errors" class="invalid-feedback">
+                        <div *ngIf="fName.subCategory.errors.required">Lookup SubCategory Name is required</div>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                          <label>Lookup Name</label>
+                          <input type="text" formControlName="lookupObjName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted1 && fName.lookupObjName.errors }" />
+                          <div *ngIf="submitted1 && fName.lookupObjName.errors" class="invalid-feedback">
+                            <div *ngIf="fName.lookupObjName.errors.required">Lookup Name is required</div>
+                          </div>
+                        </div>
+                  </div>
+                  <div class="col">
+
+                  </div>
+                </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="saveLookupObject()">Next</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

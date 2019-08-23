@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button class='btn-primary' (click)='routeOn("add")'><i class="fas fa-plus-circle"
+          aria-hidden="true"></i>RuleSet</button>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="list-group">
+        <a  class="list-group-item list-group-item-action" *ngFor="let ruleObj of ruleSetList" (click)="routeOn('edit',ruleObj)">{{ruleObj.rule_set_name}}</a>
+    </div>
+  </div>
+</div>

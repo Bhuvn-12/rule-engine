@@ -1,0 +1,13 @@
+package Test.Rules;
+import Test.Rules.InputRecord;
+rule "Rule1"
+NaN
+when 
+input:InputRecord(
+input.get("OutCol3")=input.get("id")
+)
+then
+OutputRecord in_model_1 = new OutputRecord("in_model"); 
+ in_model_1.set("TestCol3","123");
+input.setOutput(in_model_1);
+end

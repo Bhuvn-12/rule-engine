@@ -1,0 +1,33 @@
+<div class="container">
+
+  
+   
+       <table class="table table-striped">
+           <thead>
+             <tr>
+               
+               <th>Id</th>
+               <th>Data</th>
+               <th>Error Reason</th>
+               <th>Fix Error</th>
+               <th>Ignore Error</th>
+               
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let error of errors; let i = index">
+                <td>{{error.id}}</td>
+              <td>{{error.data}}</td>
+              <td>{{error.reason}}</td>
+               <td>   
+                   <button type="button" class="btn btn-info" (click)="fixError(i)">Fix</button>
+               </td>
+               <td>   
+                 <button type="button" class="btn btn-danger" (click)="ignoreError(i)">Ignore</button>
+             </td>
+               
+             </tr>
+           </tbody>
+         </table>
+         
+   </div>

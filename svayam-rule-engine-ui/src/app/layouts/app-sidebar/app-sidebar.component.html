@@ -1,0 +1,80 @@
+<div id="sidebar-collapse">
+    <div class="admin-block d-flex">
+        <div>
+            <img [src]="imgURL" width="45px" class="img-circle" />
+        </div>
+        <div class="admin-info">
+            <div class="font-strong">{{user_fname}} {{user_lname}}</div><small></small>
+        </div>
+    </div>
+    <ul class="side-menu metismenu">
+        <li>
+            <a href="javascript:;" routerLinkActive="active" routerLink="/organization"><i
+                    class="sidebar-item-icon fa fa-th-large"></i>
+                <span class="nav-label">Organization</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="javascript:;" routerLink="/profile" routerLinkActive="active"><i
+                    class="sidebar-item-icon fa fa-user"></i>
+                <span class="nav-label">Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" routerLink="/usrmgmt" routerLinkActive="active"><i
+                    class="sidebar-item-icon fas fa-cog"></i>
+                <span class="nav-label">User management</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" routerLink="/help" routerLinkActive="active"><i
+                    class="sidebar-item-icon fa fa-question-circle"></i>
+                <span class="nav-label">Help</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" routerLinkActive="active"><i class="sidebar-item-icon fas fa-tv"></i>
+                <span class="nav-label">Rule Engine</span><i class="fa fa-angle-left arrow"></i></a>
+            <ul class="nav-2-level collapse">
+                <li>
+                    <a href="javascript:;" routerLink="/rules" routerLinkActive="active">Rules</a>
+                </li>
+                <li>
+                    <a href="javascript:;" routerLink="/ruletest" routerLinkActive="active">Test</a>
+                </li>
+                <li>
+                    <a href="javascript:;" routerLink="/ruleops" routerLinkActive="active">Operations</a>
+                </li>
+                <li>
+                    <a href="javascript:;" routerLink="/dataobj" routerLinkActive="active">Data Objects</a>
+                </li>
+                <li>
+                    <a href="javascript:;" routerLink="/lookup" routerLinkActive="active">Lookup</a>
+                </li>
+                <li>
+                    <a href="javascript:;" routerLink="/processflow" routerLinkActive="active">Process Flow</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" routerLink="/bill" routerLinkActive="active"><i
+                    class="sidebar-item-icon fa fa-money-bill-alt"></i>
+                <span class="nav-label">Billing</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" routerLink="/dataerror" routerLinkActive="active"><i
+                    class="sidebar-item-icon fa fa-exclamation-circle"></i>
+                <span class="nav-label">Data Error</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" routerLink="/systemstate" routerLinkActive="active"><i
+                    class="sidebar-item-icon fa fa-chart-line"></i>
+                <span class="nav-label">System state</span>
+            </a>
+        </li>
+
+    </ul>
+</div>

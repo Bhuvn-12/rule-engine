@@ -1,0 +1,73 @@
+[
+    {
+        "ruleName": "Rule1",
+        "inputDataObj": "in_model",
+        "when": {
+            "condition": "",
+            "rules": [
+                {
+                    "field": "TestCol2",
+                    "operator": "=",
+                    "function": "expression",
+                    "value": "input.get(\"id\")+lookup.from(\"lookup1\",input.get(\"name\"))"
+                },
+                {
+                    "field": "TestCol2",
+                    "operator": "=",
+                    "function": "static",
+                    "value": "123"
+                },
+                {
+                    "field": "TestCol2",
+                    "operator": "=",
+                    "function": "static",
+                    "value": "qwe"
+                },
+                {
+                    "field": "TestCol2",
+                    "operator": "=",
+                    "function": "derived",
+                    "newfield": "TestCol2"
+                },
+                {
+                    "field": "TestCol2",
+                    "operator": "=",
+                    "function": "lookup",
+                    "lookupname": "key1",
+                    "lookupkey": "rajan"
+                }
+            ]
+        },
+        "then": [
+            {
+                "outputDataObject": "in_model",
+                "assignments": [
+                    {
+                        "field": "TestCol2",
+                        "operator": "=",
+                        "function": "static",
+                        "value": "124"
+                    },
+                    {
+                        "field": "TestCol2",
+                        "operator": "=",
+                        "function": "derived",
+                        "newfield": "testcol4"
+                    },
+                    {
+                        "field": "TestCol2",
+                        "operator": "=",
+                        "function": "expression",
+                        "value": "input.get(\"id\")+lookup.from(\"lookup1\",input.get(\"name\"))"
+                    },
+                    {
+                        "field": "TestCol2",
+                        "operator": "=",
+                        "function": "static",
+                        "value": "abc"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,12 @@
+#top_head {
+    text-align: center;
+}
+input[type="text"]:read-only {
+    background: #ffffff;
+  }
+.custom-select:disabled {
+    background: #ffffff;
+}
+th{
+    text-align: center;
+}
